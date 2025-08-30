@@ -1,0 +1,15 @@
+<%-
+	local sid = self.section
+	local url = luci.dispatcher.build_url("admin", "system", "firmware_updater_action")
+-%>
+<input type="button" class="cbi-button cbi-button-apply" value="<%:Check Firmware%>" onclick="checkFirmware('<%=url%>', '<%=self:cbid(sid)%>')"/>
+
+<script type="text/javascript">
+function checkFirmware(url, inputId) {
+	var u = document.getElementById(inputId).value;
+	XHR.post(url, { action: 'check', url: u }, function(x) {
+		var msg = x.responseText ? JSON.parse(x.responseText) : {};
+		alert((msg.status == 'success' ? '✓ ' : '✗ ') + msg.message);
+	});
+}
+</script>

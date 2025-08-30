@@ -1,0 +1,18 @@
+<input type="button" class="cbi-button cbi-button-negative" value="<%:Upgrade Now%>" onclick="startUpgrade()"/>
+
+<script type="text/javascript">
+function startUpgrade() {
+	if (confirm("警告：系统将升级并重启，配置将保留。确定继续？")) {
+		var url = '<%=luci.dispatcher.build_url("admin", "system", "firmware_updater_action")%>';
+		XHR.post(url, { action: 'upgrade' }, function(x) {
+			var msg = x.responseText ? JSON.parse(x.responseText) : {};
+			alert(msg.message);
+			if (msg.status === 'success') {
+				setTimeout(function() {
+					alert("设备正在重启，请稍后重新连接。");
+				}, 2000);
+			}
+		});
+	}
+}
+</script>

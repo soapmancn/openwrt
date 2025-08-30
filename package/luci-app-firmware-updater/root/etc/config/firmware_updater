@@ -1,0 +1,3 @@
+config firmware_updater 'settings'
+    option url 'https://your-server.com/firmware/openwrt-21.02.7-ar71xx-generic-squashfs-sysupgrade.bin'
+    option enabled '1'
